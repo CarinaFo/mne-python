@@ -136,7 +136,7 @@ jobs:
         if: matrix.kind == 'conda'
         timeout-minutes: 20
       # Python (if old)
-      - uses: astral-sh/setup-uv@v8.1.0
+      - uses: astral-sh/setup-uv@v8.2.0
         with:
           version: ">=0.9"
           activate-environment: true
@@ -166,7 +166,7 @@ jobs:
           path: ~/mne_data
       - run: bash ./tools/github_actions_download.sh
       - run: bash ./tools/github_actions_test.sh  # for some reason on macOS we need to run "bash X" in order for a failed test run to show up
-      - uses: codecov/codecov-action@v6.0.1
+      - uses: codecov/codecov-action@v7.0.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
         if: success() || failure()
