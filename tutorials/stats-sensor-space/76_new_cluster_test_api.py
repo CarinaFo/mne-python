@@ -125,35 +125,12 @@ df
 # the formula.
 
 # %%
-# Build the dataframe for the cluster test
-# ----------------------------------------
-#
-# The formula interface takes a long-format :class:`pandas.DataFrame` with one
-# row per observation. Each row holds one subject's evoked response for one
-# condition, so every subject contributes two rows (target and non-target).
-# Every subject must contribute the same set of conditions. The columns are:
-#
-# - ``evoked``: the single-subject :class:`~mne.Evoked` object
-# - ``condition``: the condition label, referenced by the formula
-# - ``subject_index``: identifies which observations are paired within a subject
-
-evokeds_conditions = target_only + non_target_only
-conditions = ["target"] * len(target_only) + ["non-target"] * len(non_target_only)
-subject_index = list(participant_ids) * 2
-
-df = pd.DataFrame(
-    {
-        "evoked": evokeds_conditions,
-        "condition": conditions,
-        "subject_index": subject_index,
-    }
-)
-df
-
 # The sign of the contrast follows the order of the condition levels. We set
 # "target" as the first level so the difference is formed as target minus
 # non-target (positive = stronger response to targets), matching the grand
 # average we plotted above.
+
+# TODO: do this within cluster test?
 df["condition"] = pd.Categorical(
     df["condition"], categories=["target", "non-target"], ordered=True
 )
